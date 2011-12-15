@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = FontAssets::VERSION
   s.authors     = ["Eric Allam"]
   s.email       = ["rubymaverick@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/rubymaverick/font_assets"
   s.summary     = %q{Improve font serving in Rails 3.1}
   s.description = %q{Improve font serving in Rails 3.1}
 
