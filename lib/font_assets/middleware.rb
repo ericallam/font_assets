@@ -33,7 +33,7 @@ module FontAssets
     end
 
     def font_asset?(path)
-      %w(woff eot tff svg).include? extension(path)
+      %w(woff eot ttf svg).include? extension(path)
     end
 
   end
