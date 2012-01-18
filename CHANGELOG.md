@@ -1,5 +1,13 @@
 ### master
 
+### 0.1.1 / 2012-01-18
+
+[full changelog](https://github.com/rubymaverick/font_assets/compare/v0.1.0...v0.1.1)
+
+Bug Fixes
+
+* Fix Rack::File#empty? call in middleware causing an exception.
+
 ### 0.1.0 / 2012-01-18
 
 [full changelog](https://github.com/rubymaverick/font_assets/compare/v0.0.2...v0.1.0)
