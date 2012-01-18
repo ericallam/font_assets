@@ -45,7 +45,7 @@ module FontAssets
     def set_headers!(headers, body, path)
       if ext = extension(path) and font_asset?(ext)
         headers.merge!(access_control_headers)
-        headers.merge!('Content-Type' => mime_type(ext)) unless body.empty?
+        headers.merge!('Content-Type' => mime_type(ext)) if headers['Content-Type']
       end
     end
 
