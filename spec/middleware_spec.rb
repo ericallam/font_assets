@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rack'
 require 'font_assets/middleware'
 
 describe FontAssets::Middleware do
