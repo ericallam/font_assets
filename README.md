@@ -7,6 +7,9 @@ two things:
 * Responds with "proper" mime types for woff, eot, tff, and svg font files, and
 * Sets Access-Control-Allow-Origin response headers for font assets, which Firefox requires for cross domain fonts.
 
+In addition, it will also respond to the pre-flight OPTIONS requests made by
+supporting browsers (Firefox).
+
 Install
 -------
 
@@ -76,6 +79,23 @@ Connection: close
 
 In it, you can see where this middleware has injected the `Content-Type` and
 `Access-Control-*` headers into the response.
+
+And below is an example OPTIONS request response:
+
+```
+$ curl -i -X OPTIONS http://www.codeschool.com/
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 18 Jan 2012 04:13:25 GMT
+Connection: keep-alive
+Access-Control-Allow-Origin: http://www.codeschool.com
+Access-Control-Allow-Methods: GET
+Access-Control-Allow-Headers: x-requested-with
+Access-Control-Max-Age: 3628800
+Vary: Accept-Encoding
+X-Rack-Cache: invalidate, pass
+Content-Length: 0
+```
 
 License
 -------
