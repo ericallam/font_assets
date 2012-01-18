@@ -1,5 +1,4 @@
 require 'font_assets/middleware'
-require 'font_assets/mime_types'
 
 module FontAssets
   class Railtie < Rails::Railtie
