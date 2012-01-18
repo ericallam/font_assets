@@ -1,4 +1,5 @@
 require 'font_assets/middleware'
+require 'font_assets/mime_types'
 
 module FontAssets
   class Railtie < Rails::Railtie
@@ -8,13 +9,6 @@ module FontAssets
       config.font_assets.origin ||= "*"
 
       app.middleware.insert_before 'ActionDispatch::Static', FontAssets::Middleware, config.font_assets.origin
-    end
-
-    config.after_initialize do
-      Rack::Mime::MIME_TYPES['.woff'] ||= 'application/x-font-woff'
-      Rack::Mime::MIME_TYPES['.ttf']  ||= 'application/x-font-ttf'
-      Rack::Mime::MIME_TYPES['.eot']  ||= 'application/vnd.ms-fontobject'
-      Rack::Mime::MIME_TYPES['.svg']  ||= 'image/svg+xml'
     end
   end
 end
