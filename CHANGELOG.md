@@ -12,6 +12,10 @@ Enhancements
 * Fixed a typo in "ttf" in the middleware.
 * Removed duplicate Railtie definition.
 
+Bug Fixes
+
+* Fix MIME types not being properly set in recent versions of Rack (starting in [Rack 1.3.0](https://github.com/rack/rack/commit/469518f7d971ba99fc335cf546d605d2364c81aa))
+
 ### 0.0.2 / 2011-12-15
 
 [full changelog](https://github.com/rubymaverick/font_assets/compare/v0.0.1...v0.0.2)
