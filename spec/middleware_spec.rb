@@ -3,7 +3,7 @@ require 'font_assets/middleware'
 
 describe FontAssets::Middleware do
   it 'passes all Rack::Lint checks' do
-    app = Rack::Lint.new(FontAssets::Middleware.new(inner_app, 'http://test.local'))
+    app = Rack::Lint.new(load_app)
     request app, '/'
   end
 
