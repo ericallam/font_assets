@@ -10,10 +10,10 @@ describe FontAssets::Middleware do
   context 'for GET requests' do
     context 'to font assets' do
       let(:app) { load_app 'http://test.origin' }
-      let(:call) { request app, '/test.ttf' }
+      let(:response) { request app, '/test.ttf' }
 
       context 'the response headers' do
-        subject { call[1] }
+        subject { response[1] }
 
         its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
         its(["Access-Control-Max-Age"]) { should == "3628800" }
@@ -25,10 +25,10 @@ describe FontAssets::Middleware do
 
     context 'to non-font assets' do
       let(:app) { load_app }
-      let(:call) { request app, '/' }
+      let(:response) { request app, '/' }
 
       context 'the response headers' do
-        subject { call[1] }
+        subject { response[1] }
 
         its(["Access-Control-Allow-Headers"]) { should be_nil }
         its(["Access-Control-Max-Age"]) { should be_nil }
@@ -41,10 +41,10 @@ describe FontAssets::Middleware do
 
   context 'for OPTIONS requests' do
     let(:app) { load_app 'http://test.options' }
-    let(:call) { request app, '/test.ttf', :method => 'OPTIONS' }
+    let(:response) { request app, '/test.ttf', :method => 'OPTIONS' }
 
     context 'the response headers' do
-      subject { call[1] }
+      subject { response[1] }
 
       its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
       its(["Access-Control-Max-Age"]) { should == "3628800" }
@@ -57,7 +57,7 @@ describe FontAssets::Middleware do
     end
 
     context 'the response body' do
-      subject { call[2] }
+      subject { response[2] }
       it { should be_empty }
     end
   end
