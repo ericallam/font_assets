@@ -101,3 +101,11 @@ License
 -------
 
 Font Assets is released under the MIT license.
+
+Contributors
+------------
+
+* [Nathanial Bibler](https://github.com/nbibler)
+* [Eric Allam](https://github.com/rubymaverick)
+* [Ryan Montgomery](https://github.com/rmontgomery429)
+* [Jack Foy](https://github.com/jfoy)
