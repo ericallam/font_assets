@@ -5,6 +5,7 @@ module FontAssets
       '.eot' => 'application/vnd.ms-fontobject',
       '.svg' => 'image/svg+xml',
       '.ttf' => 'application/x-font-ttf',
+      '.otf' => 'application/x-font-otf',
       '.woff' => 'application/x-font-woff'
     }
 
