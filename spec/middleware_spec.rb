@@ -9,17 +9,52 @@ describe FontAssets::Middleware do
 
   context 'for GET requests' do
     context 'to font assets' do
-      let(:app) { load_app 'http://test.origin' }
-      let(:response) { request app, '/test.ttf' }
+      context 'with an app that allows ssl' do
+        let(:app) { load_app 'http://test.origin', allow_ssl: true }
 
-      context 'the response headers' do
-        subject { response[1] }
+        context 'and makes a https request' do
+          let(:response) { request app, 'https://test.origin/test.ttf' }
 
-        its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
-        its(["Access-Control-Max-Age"]) { should == "3628800" }
-        its(['Access-Control-Allow-Methods']) { should == 'GET' }
-        its(['Access-Control-Allow-Origin']) { should == 'http://test.origin' }
-        its(['Content-Type']) { should == 'application/x-font-ttf' }
+          context 'the response headers' do
+            subject { response[1] }
+
+            its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
+            its(["Access-Control-Max-Age"]) { should == "3628800" }
+            its(['Access-Control-Allow-Methods']) { should == 'GET' }
+            its(['Access-Control-Allow-Origin']) { should == 'https://test.origin' }
+            its(['Content-Type']) { should == 'application/x-font-ttf' }
+          end
+        end
+
+        context 'and makes a http request' do
+          let(:response) { request app, '/test.ttf' }
+
+          context 'the response headers' do
+            subject { response[1] }
+
+            its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
+            its(["Access-Control-Max-Age"]) { should == "3628800" }
+            its(['Access-Control-Allow-Methods']) { should == 'GET' }
+            its(['Access-Control-Allow-Origin']) { should == 'http://test.origin' }
+            its(['Content-Type']) { should == 'application/x-font-ttf' }
+          end
+        end
+        
+      end
+
+      context 'with an app with just the origin specified' do
+        let(:app) { load_app 'http://test.origin' }
+        let(:response) { request app, '/test.ttf' }
+
+        context 'the response headers' do
+          subject { response[1] }
+
+          its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
+          its(["Access-Control-Max-Age"]) { should == "3628800" }
+          its(['Access-Control-Allow-Methods']) { should == 'GET' }
+          its(['Access-Control-Allow-Origin']) { should == 'http://test.origin' }
+          its(['Content-Type']) { should == 'application/x-font-ttf' }
+        end
       end
     end
 
@@ -66,8 +101,8 @@ describe FontAssets::Middleware do
   private
 
 
-  def load_app(origin = 'http://test.local')
-    FontAssets::Middleware.new(inner_app, origin)
+  def load_app(origin = 'http://test.local', options={})
+    FontAssets::Middleware.new(inner_app, origin, options)
   end
 
   def inner_app
