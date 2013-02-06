@@ -6,8 +6,9 @@ module FontAssets
 
     initializer "font_assets.configure_rails_initialization" do |app|
       config.font_assets.origin ||= "*"
+      config.font_assets.options ||= { allow_ssl: true }
 
-      app.middleware.insert_before 'Rack::Lock', FontAssets::Middleware, config.font_assets.origin
+      app.middleware.insert_before 'Rack::Lock', FontAssets::Middleware, config.font_assets.origin, config.font_assets.options
     end
   end
 end
