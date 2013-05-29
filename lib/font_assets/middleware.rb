@@ -36,13 +36,17 @@ module FontAssets
     private
 
     def origin
-      if allow_ssl? and ssl_request?
+      if !wildcard_origin? and allow_ssl? and ssl_request?
         uri = URI(@origin)
         uri.scheme = "https"
         uri.to_s
       else
         @origin
       end
+    end
+
+    def wildcard_origin?
+      @origin == '*'
     end
 
     def ssl_request?

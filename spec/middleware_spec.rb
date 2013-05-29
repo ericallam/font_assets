@@ -39,7 +39,39 @@ describe FontAssets::Middleware do
             its(['Content-Type']) { should == 'application/x-font-ttf' }
           end
         end
-        
+
+      end
+
+      context 'with an app that allows ssl from any origin' do
+        let(:app) { load_app '*', allow_ssl: true }
+
+        context 'and makes an https request' do
+          let(:response) { request app, 'https://test.origin/test.ttf' }
+
+          context 'the response headers' do
+            subject { response[1] }
+
+            its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
+            its(["Access-Control-Max-Age"]) { should == "3628800" }
+            its(['Access-Control-Allow-Methods']) { should == 'GET' }
+            its(['Access-Control-Allow-Origin']) { should == '*' }
+            its(['Content-Type']) { should == 'application/x-font-ttf' }
+          end
+        end
+
+        context 'and makes an http request' do
+          let(:response) { request app, 'http://test.origin/test.ttf' }
+
+          context 'the response headers' do
+            subject { response[1] }
+
+            its(["Access-Control-Allow-Headers"]) { should == "x-requested-with" }
+            its(["Access-Control-Max-Age"]) { should == "3628800" }
+            its(['Access-Control-Allow-Methods']) { should == 'GET' }
+            its(['Access-Control-Allow-Origin']) { should == '*' }
+            its(['Content-Type']) { should == 'application/x-font-ttf' }
+          end
+        end
       end
 
       context 'with an app with just the origin specified' do
