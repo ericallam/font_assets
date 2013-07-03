@@ -1,5 +1,9 @@
 ### master
 
+### 0.1.10 / 2013-07-07
+
+Fixing Regression
+
 ### 0.1.9 / 2013-07-07
 
 Bug Fixes
