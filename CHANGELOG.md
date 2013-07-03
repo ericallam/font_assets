@@ -1,5 +1,11 @@
 ### master
 
+### 0.1.9 / 2013-07-07
+
+Bug Fixes
+
+* Change middleware insert order to work with config.threadsafe! (thnx [Nick Urban!](https://github.com/nickurban))
+
 ### 0.1.1 / 2012-01-18
 
 [full changelog](https://github.com/rubymaverick/font_assets/compare/v0.1.0...v0.1.1)

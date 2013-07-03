@@ -109,3 +109,4 @@ Contributors
 * [Eric Allam](https://github.com/rubymaverick)
 * [Ryan Montgomery](https://github.com/rmontgomery429)
 * [Jack Foy](https://github.com/jfoy)
+* [Nick Urban](https://github.com/nickurban)
