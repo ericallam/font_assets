@@ -26,8 +26,9 @@ module FontAssets
       if env["REQUEST_METHOD"] == "OPTIONS"
         return [200, access_control_headers, []]
       else
+        path = env["PATH_INFO"].dup
         code, headers, body = @app.call(env)
-        set_headers! headers, body, env["PATH_INFO"]
+        set_headers! headers, body, path
         [code, headers, body]
       end
     end
