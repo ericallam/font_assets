@@ -14,7 +14,10 @@ module FontAssets
         'Rack::Runtime'
       end
 
-      app.middleware.insert_before insert_target, FontAssets::Middleware, config.font_assets.origin, config.font_assets.options
+      app.middleware.insert_before config.font_assets.insert_target,
+        FontAssets::Middleware,
+        config.font_assets.origin,
+        config.font_assets.options
     end
   end
 end
