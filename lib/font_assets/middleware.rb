@@ -61,7 +61,7 @@ module FontAssets
       @options[:allow_ssl]
     end
 
-    def extension(path)
+    def extension(path='')
       "." + path.split("?").first.split(".").last
     end
 
