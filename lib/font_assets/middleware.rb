@@ -62,8 +62,9 @@ module FontAssets
     end
 
     def extension(path)
-      path ||= '/'
       "." + path.split("?").first.split(".").last
+    rescue
+      "."
     end
 
     def font_asset?(path)
