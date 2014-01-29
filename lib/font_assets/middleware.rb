@@ -58,7 +58,11 @@ module FontAssets
     end
 
     def extension(path)
-      "." + path.split("?").first.split(".").last
+      if path.nil? || path.length == 0
+        nil
+      else
+        "." + path.split("?").first.split(".").last
+      end
     end
 
     def font_asset?(path)
