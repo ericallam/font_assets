@@ -104,6 +104,36 @@ describe FontAssets::Middleware do
         its(['Content-Type']) { should == 'text/plain' }
       end
     end
+
+    context 'when PATH_INFO is nil' do
+      let(:app) { load_app }
+      let(:response) { request app, '/', 'PATH_INFO' => nil }
+
+      context 'the response headers' do
+        subject { response[1] }
+
+        its(["Access-Control-Allow-Headers"]) { should be_nil }
+        its(["Access-Control-Max-Age"]) { should be_nil }
+        its(['Access-Control-Allow-Methods']) { should be_nil }
+        its(['Access-Control-Allow-Origin']) { should be_nil }
+        its(['Content-Type']) { should == 'text/plain' }
+      end
+    end
+
+    context 'when PATH_INFO is empty string' do
+      let(:app) { load_app }
+      let(:response) { request app, '/', 'PATH_INFO' => ''}
+
+      context 'the response headers' do
+        subject { response[1] }
+
+        its(["Access-Control-Allow-Headers"]) { should be_nil }
+        its(["Access-Control-Max-Age"]) { should be_nil }
+        its(['Access-Control-Allow-Methods']) { should be_nil }
+        its(['Access-Control-Allow-Origin']) { should be_nil }
+        its(['Content-Type']) { should == 'text/plain' }
+      end
+    end
   end
 
   context 'for OPTIONS requests' do
