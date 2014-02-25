@@ -1,5 +1,11 @@
 ### master
 
+### 0.1.11 / 2014-02-25
+
+Bug Fixes
+
+* Handle cases when PATH_INFO is nil or blank. Thanks [arunthampi](https://github.com/arunthampi)!
+
 ### 0.1.10 / 2013-07-07
 
 Fixing Regression
