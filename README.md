@@ -48,6 +48,9 @@ you'd want to set the origin header to this:
 config.font_assets.origin = 'http://coffeescript.codeschool.com'
 ```
 
+To match the actual `Origin` value, omit the trailing slash
+([details](http://dev.opera.com/articles/view/dom-access-control-using-cross-origin-resource-sharing/#AccessControlAllowOrigin)).
+
 An Example Response
 -------------------
 
