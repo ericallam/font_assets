@@ -24,8 +24,6 @@ module FontAssets
       dup.__call(env)
     end
   
-    private
-
     def __call(env)
       @ssl_request = Rack::Request.new(env).scheme == "https"
       # intercept the "preflight" request
@@ -37,6 +35,8 @@ module FontAssets
         [code, headers, body]
       end
     end
+  
+    private
 
     def origin
       if !wildcard_origin? and allow_ssl? and ssl_request?
