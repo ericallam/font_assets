@@ -22,7 +22,7 @@ describe FontAssets::Middleware do
             its(["Access-Control-Max-Age"]) { should == "3628800" }
             its(['Access-Control-Allow-Methods']) { should == 'GET' }
             its(['Access-Control-Allow-Origin']) { should == 'https://test.origin' }
-            its(['Content-Type']) { should == 'application/x-font-ttf' }
+            its(['Content-Type']) { should == 'application/octet-stream' }
           end
         end
 
@@ -36,7 +36,7 @@ describe FontAssets::Middleware do
             its(["Access-Control-Max-Age"]) { should == "3628800" }
             its(['Access-Control-Allow-Methods']) { should == 'GET' }
             its(['Access-Control-Allow-Origin']) { should == 'http://test.origin' }
-            its(['Content-Type']) { should == 'application/x-font-ttf' }
+            its(['Content-Type']) { should == 'application/octet-stream' }
           end
         end
 
@@ -55,7 +55,7 @@ describe FontAssets::Middleware do
             its(["Access-Control-Max-Age"]) { should == "3628800" }
             its(['Access-Control-Allow-Methods']) { should == 'GET' }
             its(['Access-Control-Allow-Origin']) { should == '*' }
-            its(['Content-Type']) { should == 'application/x-font-ttf' }
+            its(['Content-Type']) { should == 'application/octet-stream' }
           end
         end
 
@@ -69,7 +69,7 @@ describe FontAssets::Middleware do
             its(["Access-Control-Max-Age"]) { should == "3628800" }
             its(['Access-Control-Allow-Methods']) { should == 'GET' }
             its(['Access-Control-Allow-Origin']) { should == '*' }
-            its(['Content-Type']) { should == 'application/x-font-ttf' }
+            its(['Content-Type']) { should == 'application/octet-stream' }
           end
         end
       end
@@ -85,7 +85,7 @@ describe FontAssets::Middleware do
           its(["Access-Control-Max-Age"]) { should == "3628800" }
           its(['Access-Control-Allow-Methods']) { should == 'GET' }
           its(['Access-Control-Allow-Origin']) { should == 'http://test.origin' }
-          its(['Content-Type']) { should == 'application/x-font-ttf' }
+          its(['Content-Type']) { should == 'application/octet-stream' }
         end
       end
     end

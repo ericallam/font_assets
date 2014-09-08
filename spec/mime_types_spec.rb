@@ -31,7 +31,7 @@ describe FontAssets::MimeTypes do
     let(:types) { described_class.new({}) }
 
     it 'returns the mime type of the passed extension' do
-      types['.woff'].should == 'application/x-font-woff'
+      types['.woff'].should == 'application/font-woff'
     end
 
     it 'returns the default mime type for unknown extensions' do
