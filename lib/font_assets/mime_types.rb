@@ -4,9 +4,9 @@ module FontAssets
     MIME_TYPES = {
       '.eot' => 'application/vnd.ms-fontobject',
       '.svg' => 'image/svg+xml',
-      '.ttf' => 'application/x-font-ttf',
-      '.otf' => 'application/x-font-otf',
-      '.woff' => 'application/x-font-woff'
+      '.ttf' => 'application/octet-stream',
+      '.otf' => 'application/font-sfnt',
+      '.woff' => 'application/font-woff'
     }
 
     def initialize(types, default = DEFAULT_TYPE.dup)
