@@ -44,12 +44,12 @@ describe FontAssets::MimeTypes do
 
     it 'is true for known font extensions' do
       FontAssets::MimeTypes::MIME_TYPES.keys.each do |key|
-        types.font?(key).should be_true
+        types.font?(key).should be_truthy
       end
     end
 
     it 'is false for unrecognized font extensions' do
-      types.font?('.bad').should be_false
+      types.font?('.bad').should be_falsey
     end
   end
 end
