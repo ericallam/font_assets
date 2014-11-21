@@ -7,6 +7,7 @@ module FontAssets
       '.ttf' => 'application/x-font-ttf',
       '.otf' => 'application/x-font-otf',
       '.woff' => 'application/x-font-woff'
+      '.woff2' => 'application/x-font-woff2'
     }
 
     def initialize(types, default = DEFAULT_TYPE.dup)
