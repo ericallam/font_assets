@@ -136,7 +136,7 @@ describe FontAssets::Middleware do
     end
   end
 
-  context 'for OPTIONS requests' do
+  context 'for OPTIONS requests to a font' do
     let(:app) { load_app 'http://test.options' }
     let(:response) { request app, '/test.ttf', :method => 'OPTIONS' }
 
@@ -156,6 +156,29 @@ describe FontAssets::Middleware do
     context 'the response body' do
       subject { response[2] }
       it { should be_empty }
+    end
+  end
+
+  context 'for OPTIONS requests to a non-font' do
+    let(:app) { load_app 'http://test.options' }
+    let(:response) { request app, '/test.json', :method => 'OPTIONS' }
+
+    context 'the response headers' do
+      subject { response[1] }
+
+      its(["Access-Control-Allow-Headers"]) { should_not == "x-requested-with" }
+      its(["Access-Control-Max-Age"]) { should_not == "3628800" }
+      its(['Access-Control-Allow-Methods']) { should_not == 'GET' }
+      its(['Access-Control-Allow-Origin']) { should_not == 'http://test.options' }
+
+      it 'should contain a Content-Type' do
+        subject['Content-Type'].should_not be_nil
+      end
+    end
+
+    context 'the response body' do
+      subject { response[2] }
+      it { should_not be_empty }
     end
   end
 
