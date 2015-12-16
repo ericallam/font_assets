@@ -3,6 +3,7 @@ require 'font_assets/mime_types'
 
 module FontAssets
   class Middleware
+    attr_reader :origin, :options, :mime_types
 
     def initialize(app, origin, options={})
       @app = app
@@ -11,73 +12,90 @@ module FontAssets
       @mime_types = FontAssets::MimeTypes.new(Rack::Mime::MIME_TYPES)
     end
 
-    def access_control_headers
-      {
-        "Access-Control-Allow-Origin" => origin,
-        "Access-Control-Allow-Methods" => "GET",
-        "Access-Control-Allow-Headers" => "x-requested-with",
-        "Access-Control-Max-Age" => "3628800"
-      }
-    end
-
     def call(env)
-      @ssl_request = Rack::Request.new(env).scheme == "https"
-      # intercept the "preflight" request
-      if env["REQUEST_METHOD"] == "OPTIONS"
-        return [200, access_control_headers, []]
-      else
-        code, headers, body = @app.call(env)
-        set_headers! headers, body, env["PATH_INFO"]
-        [code, headers, body]
+      FontAssetsRequest.new(self, env).do_request do
+        @app.call(env)
       end
     end
 
-
-    private
-
-    def origin
-      if !wildcard_origin? and allow_ssl? and ssl_request?
-        uri = URI(@origin)
-        uri.scheme = "https"
-        uri.to_s
-      else
-        @origin
+    class FontAssetsRequest
+      def initialize(middleware, env)
+        @middleware = middleware
+        @request = Rack::Request.new(env)
       end
-    end
 
-    def wildcard_origin?
-      @origin == '*'
-    end
+      def do_request
+        if font_asset?
+          if @request.options?
+            return [200, access_control_headers, []]
+          else
+            code, headers, body = yield
 
-    def ssl_request?
-      @ssl_request
-    end
+            headers.merge!(access_control_headers)
+            headers.merge!('Content-Type' => mime_type) if headers['Content-Type']
 
-    def allow_ssl?
-      @options[:allow_ssl]
-    end
-
-    def extension(path)
-      if path.nil? || path.length == 0
-        nil
-      else
-        "." + path.split("?").first.split(".").last
+            [code, headers, body]
+          end
+        else
+          yield
+        end
       end
-    end
 
-    def font_asset?(path)
-      @mime_types.font? extension(path)
-    end
-
-    def set_headers!(headers, body, path)
-      if ext = extension(path) and font_asset?(ext)
-        headers.merge!(access_control_headers)
-        headers.merge!('Content-Type' => mime_type(ext)) if headers['Content-Type']
+      private
+      def access_control_headers
+        {
+          "Access-Control-Allow-Origin" => origin,
+          "Access-Control-Allow-Methods" => "GET",
+          "Access-Control-Allow-Headers" => "x-requested-with",
+          "Access-Control-Max-Age" => "3628800"
+        }
       end
-    end
 
-    def mime_type(extension)
-      @mime_types[extension]
+      def origin
+        if !wildcard_origin? and allow_ssl? and ssl_request?
+          uri = URI(@middleware.origin)
+          uri.scheme = "https"
+          uri.to_s
+        else
+          @middleware.origin
+        end
+      end
+
+      def wildcard_origin?
+        @middleware.origin == '*'
+      end
+
+      def ssl_request?
+        @request.scheme == "https"
+      end
+
+      def allow_ssl?
+        @middleware.options[:allow_ssl]
+      end
+
+      def path
+        @request.path_info
+      end
+
+      def font_asset?
+        mime_types.font? extension
+      end
+
+      def mime_type
+        mime_types[extension]
+      end
+
+      def mime_types
+        @middleware.mime_types
+      end
+
+      def extension
+        if path.nil? || path.length == 0
+          nil
+        else
+          "." + path.split("?").first.split(".").last
+        end
+      end
     end
   end
 end
