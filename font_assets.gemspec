@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/rubymaverick/font_assets"
   s.summary     = %q{Improve font serving in Rails 3.1}
   s.description = %q{Improve font serving in Rails 3.1}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "font_assets"
 
