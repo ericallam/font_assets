@@ -9,10 +9,10 @@ module FontAssets
       config.font_assets.options ||= { allow_ssl: true }
 
       middleware_operations = app.middleware.instance_variable_get(:@operations)
-      insert_target = if defined?(ActionDispatch::Static) && middleware_operations.flatten.include?('ActionDispatch::Static')
-        'ActionDispatch::Static'
+      insert_target = if defined?(ActionDispatch::Static) && middleware_operations.flatten.map(&:to_s).include?('ActionDispatch::Static')
+        ActionDispatch::Static
       else
-        'Rack::Runtime'
+        Rack::Runtime
       end
 
       app.middleware.insert_before insert_target, FontAssets::Middleware, config.font_assets.origin, config.font_assets.options

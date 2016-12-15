@@ -10,6 +10,11 @@ two things:
 In addition, it will also respond to the pre-flight OPTIONS requests made by
 supporting browsers (Firefox).
 
+Important
+---------
+
+This gem only works if you are **NOT** precompiling your assets in production, because it requires asset requests to go through the Rails app, and if you precompile your assets then you are most likely serving them through a web server like NGINX. If this is the case, don't use this gem but instead look into configuring the CORS headers for font requests. For example, here is a way to [do that in NGINX](http://enable-cors.org/server_nginx.html).
+
 Install
 -------
 
